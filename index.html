@@ -1,9 +1,12 @@
+Absolutely. This version keeps everything in one `index.html`, uses a green car-style profile, and adds a **sunflower mouse cursor that follows your mouse movement**. Move your mouse around the page and the sunflower will follow it.
+
 ```
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Anjali Y | CSE Student</title>
 
     <style>
@@ -11,165 +14,320 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
         }
 
         body {
-            background: #e8f5e9;
-            color: #183d25;
+            font-family: Arial, sans-serif;
             min-height: 100vh;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            color: #174d20;
+            cursor: none;
+            overflow-x: hidden;
         }
 
-        .profile {
-            width: 90%;
-            max-width: 1000px;
-            margin: 40px auto;
-            background: #ffffff;
-            border: 4px solid #2e7d32;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(27, 94, 32, 0.25);
+        /* =========================
+           SUNFLOWER MOUSE
+        ========================= */
+
+        .sunflower {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 55px;
+            height: 55px;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.08s linear;
         }
 
-        /* Car-like front section */
-        .header {
-            background: linear-gradient(135deg, #1b5e20, #43a047);
-            color: white;
-            padding: 45px 30px;
-            text-align: center;
-            position: relative;
-        }
-
-        .header::before,
-        .header::after {
-            content: "";
+        .petal {
             position: absolute;
-            width: 70px;
-            height: 70px;
-            background: #17251a;
-            border: 8px solid #81c784;
+            width: 20px;
+            height: 30px;
+            background: #ffd600;
             border-radius: 50%;
-            bottom: -35px;
+            left: 18px;
+            top: 12px;
+            transform-origin: center 16px;
+            box-shadow: 0 0 5px rgba(255, 193, 7, 0.6);
         }
 
-        .header::before {
-            left: 12%;
+        .p1 { transform: rotate(0deg) translateY(-16px); }
+        .p2 { transform: rotate(45deg) translateY(-16px); }
+        .p3 { transform: rotate(90deg) translateY(-16px); }
+        .p4 { transform: rotate(135deg) translateY(-16px); }
+        .p5 { transform: rotate(180deg) translateY(-16px); }
+        .p6 { transform: rotate(225deg) translateY(-16px); }
+        .p7 { transform: rotate(270deg) translateY(-16px); }
+        .p8 { transform: rotate(315deg) translateY(-16px); }
+
+        .flower-center {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: #6d4c41;
+            border: 3px solid #4e342e;
+            border-radius: 50%;
+            left: 16px;
+            top: 16px;
+            z-index: 2;
         }
 
-        .header::after {
-            right: 12%;
+        /* =========================
+           MAIN CAR
+        ========================= */
+
+        .car {
+            width: 90%;
+            max-width: 1050px;
+            margin: 100px auto 80px;
+            background: white;
+            border: 5px solid #1b5e20;
+            border-radius: 60px 60px 35px 35px;
+            position: relative;
+            box-shadow: 0 20px 45px rgba(27, 94, 32, 0.3);
         }
 
-        .car-line {
-            width: 75%;
-            height: 8px;
+        /* Car roof */
+
+        .roof {
+            width: 65%;
+            height: 140px;
+            margin: -90px auto 0;
+            background: #2e7d32;
+            border-radius: 130px 130px 0 0;
+            position: relative;
+            border: 5px solid #1b5e20;
+            border-bottom: none;
+        }
+
+        /* Car windows */
+
+        .window {
+            position: absolute;
+            top: 25px;
+            width: 42%;
+            height: 85px;
+            background: linear-gradient(135deg, #b2dfdb, #80cbc4);
+            border: 4px solid #123d19;
+        }
+
+        .window.left {
+            left: 4%;
+            border-radius: 60px 10px 10px 10px;
+        }
+
+        .window.right {
+            right: 4%;
+            border-radius: 10px 60px 10px 10px;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            text-align: center;
+            padding: 45px 20px;
+            color: white;
+            background: linear-gradient(135deg, #1b5e20, #43a047);
+            border-radius: 50px 50px 15px 15px;
+        }
+
+        header h1 {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            font-size: 20px;
+            color: #e8f5e9;
+        }
+
+        .road-line {
+            width: 70%;
+            height: 6px;
+            margin: 25px auto 0;
             background: #a5d6a7;
             border-radius: 10px;
-            margin: 25px auto 0;
         }
 
-        .header h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 18px;
-        }
+        /* =========================
+           CONTENT
+        ========================= */
 
         .content {
-            padding: 55px 40px 40px;
+            padding: 45px;
         }
 
         .about {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 45px;
         }
 
         .about h2,
         .interests h2 {
-            color: #2e7d32;
-            margin-bottom: 15px;
-            font-size: 28px;
+            color: #1b5e20;
+            font-size: 30px;
+            margin-bottom: 18px;
         }
 
         .about p {
-            font-size: 17px;
-            line-height: 1.7;
-            color: #49634e;
+            max-width: 800px;
+            margin: auto;
+            line-height: 1.8;
+            font-size: 18px;
+            color: #526b56;
         }
 
-        .interests {
-            text-align: center;
-        }
+        /* =========================
+           HOBBY CARDS
+        ========================= */
 
         .cards {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 25px;
             margin-top: 25px;
         }
 
         .card {
             background: #f1f8f2;
-            border: 2px solid #a5d6a7;
-            border-radius: 18px;
-            padding: 25px;
-            transition: 0.3s;
+            border: 2px solid #81c784;
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            transition: 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-7px);
+            transform: translateY(-10px) rotate(1deg);
             background: #e8f5e9;
-            box-shadow: 0 8px 20px rgba(46, 125, 50, 0.2);
+            box-shadow: 0 12px 25px rgba(46, 125, 50, 0.25);
         }
 
-        .card .icon {
-            font-size: 38px;
-            margin-bottom: 10px;
+        .icon {
+            font-size: 50px;
+            margin-bottom: 15px;
         }
 
         .card h3 {
             color: #1b5e20;
-            margin-bottom: 8px;
+            font-size: 23px;
+            margin-bottom: 10px;
         }
 
         .card p {
             color: #607d64;
+            line-height: 1.6;
         }
 
-        .footer {
+        /* =========================
+           CAR WHEELS
+        ========================= */
+
+        .wheel {
+            position: absolute;
+            width: 95px;
+            height: 95px;
+            background: #212121;
+            border: 13px solid #616161;
+            border-radius: 50%;
+            bottom: -50px;
+            box-shadow: inset 0 0 0 5px #303030;
+        }
+
+        .wheel::after {
+            content: "";
+            position: absolute;
+            width: 27px;
+            height: 27px;
+            background: #bdbdbd;
+            border: 4px solid #757575;
+            border-radius: 50%;
+            top: 20px;
+            left: 20px;
+        }
+
+        .wheel.left {
+            left: 12%;
+        }
+
+        .wheel.right {
+            right: 12%;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
             background: #1b5e20;
             color: white;
             text-align: center;
-            padding: 20px;
-            font-size: 15px;
+            padding: 22px;
+            border-radius: 0 0 30px 30px;
+            font-size: 16px;
         }
 
-        @media (max-width: 600px) {
-            .profile {
-                width: 94%;
-                margin: 20px auto;
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            body {
+                cursor: auto;
             }
 
-            .header h1 {
-                font-size: 32px;
+            .sunflower {
+                display: none;
+            }
+
+            .car {
+                width: 94%;
+                margin-top: 100px;
+            }
+
+            .roof {
+                width: 75%;
+                height: 105px;
+            }
+
+            .window {
+                height: 60px;
+                top: 20px;
+            }
+
+            header h1 {
+                font-size: 34px;
+            }
+
+            header p {
+                font-size: 16px;
             }
 
             .content {
-                padding: 50px 20px 30px;
+                padding: 25px 18px;
             }
 
             .cards {
                 grid-template-columns: 1fr;
             }
 
-            .header::before {
-                left: 8%;
+            .wheel {
+                width: 70px;
+                height: 70px;
+                border-width: 9px;
+                bottom: -35px;
             }
 
-            .header::after {
-                right: 8%;
+            .wheel::after {
+                width: 20px;
+                height: 20px;
+                top: 15px;
+                left: 15px;
             }
         }
     </style>
@@ -177,64 +335,168 @@
 
 <body>
 
-    <div class="profile">
+    <!-- =========================
+         SUNFLOWER MOUSE CURSOR
+    ========================== -->
 
-        <header class="header">
+    <div class="sunflower" id="sunflower">
+
+        <div class="petal p1"></div>
+        <div class="petal p2"></div>
+        <div class="petal p3"></div>
+        <div class="petal p4"></div>
+        <div class="petal p5"></div>
+        <div class="petal p6"></div>
+        <div class="petal p7"></div>
+        <div class="petal p8"></div>
+
+        <div class="flower-center"></div>
+
+    </div>
+
+    <!-- =========================
+         CAR PROFILE
+    ========================== -->
+
+    <div class="car">
+
+        <!-- Car Roof -->
+        <div class="roof">
+            <div class="window left"></div>
+            <div class="window right"></div>
+        </div>
+
+        <!-- Header -->
+        <header>
+
             <h1>🚗 Anjali Y</h1>
-            <p>CSE Engineering Student at JGI</p>
-            <div class="car-line"></div>
+
+            <p>
+                CSE Engineering Student at JGI
+            </p>
+
+            <div class="road-line"></div>
+
         </header>
 
+        <!-- Main Content -->
         <main class="content">
 
+            <!-- About -->
             <section class="about">
-                <h2>About Me</h2>
+
+                <h2>🌿 About Me</h2>
+
                 <p>
-                    Hello! I am <strong>Anjali Y</strong>, a Computer Science Engineering
-                    student at <strong>JGI</strong>. I enjoy learning technology and
-                    exploring creative activities in my free time.
+                    Hello! My name is <strong>Anjali Y</strong>.
+                    I am studying Computer Science Engineering at
+                    <strong>JGI</strong>.
+                    I love learning new things and enjoying my hobbies.
+                    I am passionate about healthy food, books, music,
+                    and cooking delicious non-vegetarian recipes.
                 </p>
+
             </section>
 
+            <!-- Interests -->
             <section class="interests">
-                <h2>My Interests</h2>
+
+                <h2>💚 My Hobbies & Interests</h2>
 
                 <div class="cards">
 
+                    <!-- Healthy Food -->
                     <div class="card">
+
                         <div class="icon">🥗</div>
-                        <h3>Healthy Food</h3>
-                        <p>I love eating and exploring healthy foods.</p>
+
+                        <h3>Healthy Foods</h3>
+
+                        <p>
+                            I love healthy foods and enjoy
+                            exploring nutritious and tasty meals.
+                        </p>
+
                     </div>
 
+                    <!-- Books -->
                     <div class="card">
+
                         <div class="icon">📚</div>
+
                         <h3>Reading Books</h3>
-                        <p>I enjoy reading books and discovering new ideas.</p>
+
+                        <p>
+                            I enjoy reading books and discovering
+                            interesting stories and new ideas.
+                        </p>
+
                     </div>
 
+                    <!-- Music -->
                     <div class="card">
+
                         <div class="icon">🎵</div>
+
                         <h3>Listening to Music</h3>
-                        <p>Music is one of my favorite ways to relax and enjoy my time.</p>
+
+                        <p>
+                            I love listening to music and enjoying
+                            my favorite songs during my free time.
+                        </p>
+
                     </div>
 
+                    <!-- Cooking -->
                     <div class="card">
+
                         <div class="icon">🍗</div>
-                        <h3>Cooking</h3>
-                        <p>I love cooking delicious non-vegetarian recipes.</p>
+
+                        <h3>Cooking Non-Veg Recipes</h3>
+
+                        <p>
+                            I enjoy cooking delicious
+                            non-vegetarian recipes and trying
+                            new dishes.
+                        </p>
+
                     </div>
 
                 </div>
+
             </section>
 
         </main>
 
-        <footer class="footer">
-            Made with 💚 by Anjali Y
+        <!-- Car Wheels -->
+        <div class="wheel left"></div>
+        <div class="wheel right"></div>
+
+        <!-- Footer -->
+        <footer>
+
+            Made with 💚 by Anjali Y 🌻
+
         </footer>
 
     </div>
+
+    <!-- =========================
+         SUNFLOWER MOUSE SCRIPT
+    ========================== -->
+
+    <script>
+
+        const sunflower = document.getElementById("sunflower");
+
+        document.addEventListener("mousemove", function(event) {
+
+            sunflower.style.left = event.clientX + "px";
+            sunflower.style.top = event.clientY + "px";
+
+        });
+
+    </script>
 
 </body>
 </html>
